@@ -1,11 +1,12 @@
 class Movie
-    attr_reader :title, :duration, :rating
+    attr_reader :title, :duration, :rating, :director
     @@all = []
 
-    def initialize(title, duration, rating)
+    def initialize(title, duration, rating, director)
         @title = title
         @duration = duration
         @rating = rating.clamp(0,10)
+        @director = director
         @@all << self
     end
 
@@ -44,17 +45,24 @@ class Movie
         (average.sum.to_f/average.count).round(2)
     end
 
-    def count_actors
-        self.actors.count
+    def self.number_of_actors
+        self.all.map do |movie|
+            movie.actors.count
+        end
     end
 
+
     def self.most_actors
-        number_actors = self.all.map do |movie|
-            movie.count_actors
-        end.max
+        # iterate through all movies and find the movie(s) that have the most actors
+        # number_actors = self.all.map do |movie|
+        #     movie.count_actors
+        # end.max 
         
+        # self.all.find_all do |movie|
+        #     movie.count_actors == number_actors
+        # end
         self.all.find_all do |movie|
-            movie.count_actors == number_actors
+        movie.actors.count == self.number_of_actors.max
         end
     end
 

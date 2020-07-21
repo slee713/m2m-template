@@ -42,7 +42,17 @@ class Actor
         end
     end
 
+    # def worked_with_the_most
+    #     #find all the movies self was in
+    #     #find all the actors in those movies 
+    #     actors = self.movies.map do |movie|
+    #         movie.actors
+    #     end
 
+
+
+    #     binding.pry
+    # end
 
 
 end
