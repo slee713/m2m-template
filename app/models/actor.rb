@@ -1,10 +1,12 @@
 class Actor
-    attr_reader :name
+    attr_reader :age
+    attr_accessor :name
     
     @@all = []
 
-    def initialize(name)
+    def initialize(name, age)
         @name = name
+        @age = age
         @@all << self
     end
 
@@ -16,13 +18,31 @@ class Actor
         MovieActor.new(movie, self)
     end
 
-    #find movies that actor is in
-
     def movies
         movie_actor = MovieActor.all.find_all do |movieactor|
             movieactor.actor == self
         end
         movie_actor.map {|ma| ma.movie}
     end
+
+    def self.average_age
+        all_age = self.all.map do |actor|
+            actor.age
+        end
+        all_age.sum.to_f/all_age.count
+    end
+
+    def highest_rated_movie
+        highest_rated_movie = self.movies.max_by do |movie|
+            movie.rating
+        end
+        
+        self.movies.find_all do |movie|
+            movie.rating == highest_rated_movie.rating
+        end
+    end
+
+
+
 
 end
